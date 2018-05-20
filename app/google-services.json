@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "208241306448",
+    "firebase_url": "https://sopsop-9219e.firebaseio.com",
+    "project_id": "sopsop-9219e",
+    "storage_bucket": "sopsop-9219e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208241306448:android:f04a7cb003ad440f",
+        "android_client_info": {
+          "package_name": "com.inri.sopsop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208241306448-eiifap7smsftqrpee7nvgc9pv0slqkv9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inri.sopsop",
+            "certificate_hash": "9eb869ffc66e1718567e4318d9ebc6c253dfc9d4"
+          }
+        },
+        {
+          "client_id": "208241306448-3f3e08tdttf6q8v8mqrhhkm51ijotqhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwkujdwMlWs9GniZYmQDe5LhQo6-AOeio"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208241306448-3f3e08tdttf6q8v8mqrhhkm51ijotqhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

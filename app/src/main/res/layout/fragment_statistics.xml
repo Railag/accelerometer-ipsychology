@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <Button
+        android:id="@+id/reaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:enabled="false"
+        android:padding="10dp"
+        android:text="@string/reactionTitle"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/distribution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:enabled="false"
+        android:padding="10dp"
+        android:text="@string/attentionDistributionTestTitle"
+        android:textColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/complex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:enabled="false"
+        android:padding="10dp"
+        android:text="@string/complexMotorReactionTestTitle"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

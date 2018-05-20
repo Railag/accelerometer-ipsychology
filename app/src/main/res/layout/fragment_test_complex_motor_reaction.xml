@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <ImageView
+        android:id="@+id/reactionImage"
+        android:layout_width="@dimen/complex_motor_reaction_circle_size"
+        android:layout_height="@dimen/complex_motor_reaction_circle_size"
+        android:layout_centerInParent="true"
+        android:src="@drawable/complex_button_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonGreen"
+            style="?android:buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@color/greenStress" />
+
+        <Button
+            android:id="@+id/buttonRed"
+            style="?android:buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@color/redReaction" />
+
+    </LinearLayout>
+
+</RelativeLayout>
