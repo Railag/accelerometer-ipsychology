@@ -13,4 +13,5 @@ public class Requests {
     public static final int REQUEST_RESULTS_ATTENTION_VOLUME = 7;
     public static final int REQUEST_STATISTICS = 8;
     public static final int REQUEST_RESULTS_ATTENTION_STABILITY = 9;
+    public static final int REQUEST_RESULTS_FOCUSING = 10;
 }

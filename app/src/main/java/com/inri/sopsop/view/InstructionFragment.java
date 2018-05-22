@@ -20,9 +20,9 @@ public class InstructionFragment extends SimpleFragment {
     private final static String TYPE = "type";
 
     public enum Test {
-        REACTION,
+        FOCUSING,
         ATTENTION_DISTRIBUTION,
-        COMPLEX_MOTOR_REACTION
+        ATTENTION_STABILITY
     }
 
     public static InstructionFragment newInstance(Test test) {
@@ -38,7 +38,7 @@ public class InstructionFragment extends SimpleFragment {
     @BindView(R.id.instructionText)
     TextView instructionText;
 
-    private Test test = Test.REACTION;
+    private Test test = Test.FOCUSING;
 
     @Override
     protected String getTitle() {
@@ -62,13 +62,13 @@ public class InstructionFragment extends SimpleFragment {
             String instruction = "";
 
             switch (test) {
-                case REACTION:
+                case FOCUSING:
                     instruction = getString(R.string.instruction_reaction);
                     break;
                 case ATTENTION_DISTRIBUTION:
                     instruction = getString(R.string.instruction_attention_volume);
                     break;
-                case COMPLEX_MOTOR_REACTION:
+                case ATTENTION_STABILITY:
                     instruction = getString(R.string.instruction_complex_motor_reaction);
                     break;
             }
@@ -80,14 +80,14 @@ public class InstructionFragment extends SimpleFragment {
     @OnClick(R.id.start)
     public void start() {
         switch (test) {
-            case REACTION:
-                getMainActivity().toReactionTest();
+            case FOCUSING:
+                getMainActivity().toFocusingTest();
                 break;
             case ATTENTION_DISTRIBUTION:
                 getMainActivity().toAttentionVolumeTest();
                 break;
-            case COMPLEX_MOTOR_REACTION:
-                getMainActivity().toComplexMotorReactionTest();
+            case ATTENTION_STABILITY:
+                getMainActivity().toAttentionStabilityTest();
                 break;
         }
     }

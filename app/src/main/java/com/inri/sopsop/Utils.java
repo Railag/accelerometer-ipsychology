@@ -152,15 +152,19 @@ public class Utils {
     }
 
     private final static String SENSOR_TAG = "Sensor";
-    private final static float THRESHOLD_MAX = 7.0f;
-    private final static float THRESHOLD_MIN = 1.0f;
-    public static SensorEventListener registerSensor(Context context, AccelerometerListener listener) {
+    public final static float THRESHOLD_ACCELEROMETER_MAX = 7.0f;
+    private final static float THRESHOLD_ACCELEROMETER_MIN = 1.0f;
+
+    public static SensorEventListener registerSensor(Context context, AccelerometerListener listener, int degreesMin, int degreesMax) {
         if (context == null || listener == null) {
             return null;
         }
 
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        final double thresholdMin = calculateThreshold(degreesMin);
+        final double thresholdMax = calculateThreshold(degreesMax);
 
         SensorEventListener sensorEventListener = new SensorEventListener() {
             boolean sensorLock;
@@ -187,9 +191,12 @@ public class Utils {
                 linear_acceleration[1] = event.values[1] - gravity[1];
                 linear_acceleration[2] = event.values[2] - gravity[2];
 
+                listener.onUpdate(linear_acceleration[0], linear_acceleration[1], linear_acceleration[2]);
+
                 float currentX = linear_acceleration[0];
 
-                if (currentX < THRESHOLD_MIN && currentX > -THRESHOLD_MIN) {
+                if (currentX < thresholdMin && currentX > -thresholdMin) {
+                    listener.onMinThreshold();
                     sensorLock = false;
                 }
 
@@ -197,11 +204,11 @@ public class Utils {
                     return;
                 }
 
-                if (currentX > THRESHOLD_MAX) {
+                if (currentX > thresholdMax) {
                     sensorLock = true;
                     Log.i(SENSOR_TAG, "onLeft");
                     listener.onLeft();
-                } else if (currentX < -THRESHOLD_MAX) {
+                } else if (currentX < -thresholdMax) {
                     sensorLock = true;
                     Log.i(SENSOR_TAG, "onRight");
                     listener.onRight();
@@ -214,12 +221,20 @@ public class Utils {
 
             @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
             }
         };
 
         sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_UI);
 
         return sensorEventListener;
+    }
+
+    private static double calculateThreshold(int degrees) { // 3 degrees - ?
+        // 90 degrees - MAX_THRESHOLD (7.0)
+        double thresholdValue =  degrees * THRESHOLD_ACCELEROMETER_MAX / 90.0;
+        Log.i(SENSOR_TAG, "Threshold value: " + thresholdValue);
+        return thresholdValue;
     }
 
     public static void unregisterSensor(Context context, SensorEventListener listener) {

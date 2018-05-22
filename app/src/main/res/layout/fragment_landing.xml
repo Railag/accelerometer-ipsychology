@@ -95,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/reaction"
+        android:id="@+id/focusing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -119,7 +119,7 @@
         android:textColor="@color/white" />
 
     <Button
-        android:id="@+id/complex"
+        android:id="@+id/stability"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"

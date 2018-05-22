@@ -16,4 +16,6 @@ public interface BluetoothEventListener {
     void onBottomLeft();
 
     void onBottomRight();
+
+    void onCenter();
 }

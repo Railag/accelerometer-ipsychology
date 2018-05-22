@@ -1,13 +1,13 @@
 package com.inri.sopsop.view.adapter;
 
-import android.bluetooth.BluetoothDevice;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.inri.sopsop.R;
+import com.inri.sopsop.model.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,45 +16,51 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class BluetoothDeviceAdapter extends RecyclerView.Adapter<BluetoothDeviceAdapter.ViewHolder> {
+public class CirclesAdapter extends RecyclerView.Adapter<CirclesAdapter.ViewHolder> {
 
-    public interface OnDeviceClickListener {
-        void onSelected(BluetoothDevice device);
-    }
+    private List<Circle> circles = new ArrayList<>();
 
-    private List<BluetoothDevice> devices = new ArrayList<>();
-    private OnDeviceClickListener listener;
-
-    public void setDevices(List<BluetoothDevice> devices, OnDeviceClickListener listener) {
-        this.devices = devices;
-        this.listener = listener;
+    public void setCircles(List<Circle> circles) {
+        this.circles = circles;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_bluetooth_device, parent, false);
+        View view = inflater.inflate(R.layout.item_circle, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BluetoothDevice device = devices.get(position);
+        Circle circle = circles.get(position);
 
-        holder.name.setText(device.getName());
+        switch (circle) {
 
-        holder.itemView.setOnClickListener(v -> listener.onSelected(device));
+            case TOP_RIGHT:
+                holder.circle.setRotation(180);
+                break;
+            case TOP_LEFT:
+                holder.circle.setRotation(90);
+                break;
+            case DOWN_RIGHT:
+                holder.circle.setRotation(270);
+                break;
+            case DOWN_LEFT:
+            default:
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return devices.size();
+        return circles.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.name)
-        TextView name;
+        @BindView(R.id.circle)
+        ImageView circle;
 
         public ViewHolder(View itemView) {
             super(itemView);

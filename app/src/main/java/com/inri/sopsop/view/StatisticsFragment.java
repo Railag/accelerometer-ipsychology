@@ -22,11 +22,11 @@ import nucleus.factory.RequiresPresenter;
 @RequiresPresenter(StatisticsPresenter.class)
 public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
 
-    @BindView(R.id.reaction)
+    @BindView(R.id.focusing)
     Button reaction;
     @BindView(R.id.distribution)
     Button distribution;
-    @BindView(R.id.complex)
+    @BindView(R.id.stability)
     Button complex;
 
     private StatisticsResult results;
@@ -96,16 +96,16 @@ public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
         throwable.printStackTrace();
     }
 
-    @OnClick({R.id.reaction, R.id.distribution, R.id.complex})
+    @OnClick({R.id.focusing, R.id.distribution, R.id.stability})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.reaction:
+            case R.id.focusing:
                 getMainActivity().toStatisticsReaction(results);
                 break;
             case R.id.distribution:
                 getMainActivity().toStatisticsDistribution(results);
                 break;
-            case R.id.complex:
+            case R.id.stability:
                 getMainActivity().toStatisticsComplex(results);
                 break;
         }

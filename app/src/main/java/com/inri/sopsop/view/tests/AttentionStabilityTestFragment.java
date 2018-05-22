@@ -1,6 +1,5 @@
 package com.inri.sopsop.view.tests;
 
-import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.inri.sopsop.App;
-import com.inri.sopsop.BluetoothClient;
 import com.inri.sopsop.BluetoothEventListener;
 import com.inri.sopsop.R;
 import com.inri.sopsop.Utils;
@@ -60,7 +58,6 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
     private long time;
 
     private ArrayList<Answer> answers = new ArrayList<>();
-    private SensorEventListener sensorListener;
 
     public static AttentionStabilityTestFragment newInstance() {
 
@@ -85,6 +82,8 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         handler = new Handler();
+
+        getMainActivity().registerBluetoothListener(this);
 
         Random randomTime = new Random();
 
@@ -238,19 +237,12 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        sensorListener = Utils.registerSensor(getActivity(), this, 1, 3);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Utils.unregisterSensor(getActivity(), sensorListener);
-    }
 
     @Override
     public void onLeft() {
@@ -266,40 +258,30 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
 
     @Override
     public void onTop() {
-
     }
 
     @Override
     public void onBottom() {
-
     }
 
     @Override
     public void onTopLeft() {
-
     }
 
     @Override
     public void onTopRight() {
-
     }
 
     @Override
     public void onBottomLeft() {
-
     }
 
     @Override
     public void onBottomRight() {
-
     }
 
     @Override
-    public void onMinThreshold() {
+    public void onCenter() {
         testBackground.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-    }
-
-    @Override
-    public void onUpdate(double x, double y, double z) {
     }
 }

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import com.inri.sopsop.AccelerometerListener;
 import com.inri.sopsop.App;
 import com.inri.sopsop.R;
-import com.inri.sopsop.Utils;
 import com.inri.sopsop.model.Difficulty;
 import com.inri.sopsop.model.MotorCircle;
 import com.inri.sopsop.model.Result;
@@ -48,7 +47,6 @@ public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorR
     int wins = 0;
     int fails = 0;
     int misses = 0;
-    private SensorEventListener sensorListener;
 
     public static ComplexMotorReactionTestFragment newInstance() {
 
@@ -207,18 +205,6 @@ public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorR
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        sensorListener = Utils.registerSensor(getActivity(), this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Utils.unregisterSensor(getActivity(), sensorListener);
-    }
-
-    @Override
     public void onLeft() {
         leftGreenClick();
     }
@@ -226,5 +212,15 @@ public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorR
     @Override
     public void onRight() {
         rightRedClick();
+    }
+
+    @Override
+    public void onMinThreshold() {
+
+    }
+
+    @Override
+    public void onUpdate(double x, double y, double z) {
+
     }
 }

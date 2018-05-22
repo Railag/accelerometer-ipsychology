@@ -73,13 +73,13 @@ public class LandingFragment extends SimpleFragment {
         getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_DISTRIBUTION);
     }
 
-    @OnClick(R.id.complex)
-    public void toComplex() {
-        getMainActivity().toInstructionFragment(InstructionFragment.Test.COMPLEX_MOTOR_REACTION);
+    @OnClick(R.id.stability)
+    public void toStability() {
+        getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_STABILITY);
     }
 
-    @OnClick(R.id.reaction)
-    public void toReaction() {
-        getMainActivity().toInstructionFragment(InstructionFragment.Test.REACTION);
+    @OnClick(R.id.focusing)
+    public void toFocusing() {
+        getMainActivity().toInstructionFragment(InstructionFragment.Test.FOCUSING);
     }
 }

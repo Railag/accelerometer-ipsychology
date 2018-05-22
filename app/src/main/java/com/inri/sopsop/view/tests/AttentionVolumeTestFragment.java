@@ -12,13 +12,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.inri.sopsop.App;
+import com.inri.sopsop.BluetoothEventListener;
 import com.inri.sopsop.R;
 import com.inri.sopsop.model.Difficulty;
 import com.inri.sopsop.model.Figure;
 import com.inri.sopsop.model.Result;
 import com.inri.sopsop.presenter.AttentionVolumeTestPresenter;
-import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 import com.inri.sopsop.view.base.BaseFragment;
+import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +30,7 @@ import nucleus.factory.RequiresPresenter;
  */
 
 @RequiresPresenter(AttentionVolumeTestPresenter.class)
-public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTestPresenter> {
+public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTestPresenter> implements BluetoothEventListener {
 
     private final static int MAX_FIGURES = 100;
 
@@ -79,6 +80,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         handler = new Handler();
+        getMainActivity().registerBluetoothListener(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -189,5 +191,54 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onLeft() {
+
+    }
+
+    @Override
+    public void onRight() {
+
+    }
+
+    @Override
+    public void onTop() {
+        click();
+    }
+
+    @Override
+    public void onBottom() {
+
+    }
+
+    @Override
+    public void onTopLeft() {
+
+    }
+
+    @Override
+    public void onTopRight() {
+
+    }
+
+    @Override
+    public void onBottomLeft() {
+
+    }
+
+    @Override
+    public void onBottomRight() {
+
+    }
+
+    @Override
+    public void onCenter() {
+
     }
 }
