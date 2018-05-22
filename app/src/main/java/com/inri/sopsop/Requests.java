@@ -10,8 +10,9 @@ public class Requests {
     public static final int REQUEST_UPDATE_INFO = 4;
     public static final int REQUEST_RESULTS_REACTION = 5;
     public static final int REQUEST_RESULTS_COMPLEX_MOTOR_REACTION = 6;
-    public static final int REQUEST_RESULTS_ATTENTION_VOLUME = 7;
+    public static final int REQUEST_RESULTS_ATTENTION_DISTRIBUTION = 7;
     public static final int REQUEST_STATISTICS = 8;
     public static final int REQUEST_RESULTS_ATTENTION_STABILITY = 9;
     public static final int REQUEST_RESULTS_FOCUSING = 10;
+    public static final int REQUEST_RESULTS_ATTENTION_VOLUME = 11;
 }

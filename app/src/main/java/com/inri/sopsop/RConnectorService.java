@@ -54,7 +54,11 @@ public interface RConnectorService {
 
     @FormUrlEncoded
     @POST("/user/results_volume")
-    Observable<Result> sendAttentionVolumeResults(@Field("user_id") long userId, @Field("wins") long wins, @Field("fails") long fails, @Field("misses") long misses);
+    Observable<Result> sendAttentionDistributionResults(@Field("user_id") long userId, @Field("wins") long wins, @Field("fails") long fails, @Field("misses") long misses);
+
+    @FormUrlEncoded
+    @POST("/user/results_attention_volume")
+    Observable<Result> sendAttentionVolumeResults(@Field("user_id") long userId, @Field("time") Double time, @Field("wins") long wins);
 
     @FormUrlEncoded
     @POST("/user/statistics")

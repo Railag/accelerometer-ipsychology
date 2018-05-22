@@ -30,12 +30,14 @@ import com.inri.sopsop.Utils;
 import com.inri.sopsop.model.StatisticsResult;
 import com.inri.sopsop.presenter.MainPresenter;
 import com.inri.sopsop.view.adapter.BluetoothDeviceAdapter;
+import com.inri.sopsop.view.results.AttentionDistributionResultsFragment;
 import com.inri.sopsop.view.results.AttentionStabilityResultsFragment;
 import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 import com.inri.sopsop.view.results.ComplexMotorReactionResultsFragment;
 import com.inri.sopsop.view.results.FocusingResultsFragment;
 import com.inri.sopsop.view.results.ReactionResultsFragment;
 import com.inri.sopsop.view.results.ResultScreen;
+import com.inri.sopsop.view.tests.AttentionDistributionTestFragment;
 import com.inri.sopsop.view.tests.AttentionStabilityTestFragment;
 import com.inri.sopsop.view.tests.AttentionVolumeTestFragment;
 import com.inri.sopsop.view.tests.ComplexMotorReactionTestFragment;
@@ -708,8 +710,8 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         setFragment(InstructionFragment.newInstance(test));
     }
 
-    public void toAttentionVolumeTest() {
-        setFragment(AttentionVolumeTestFragment.newInstance());
+    public void toAttentionDistributionTest() {
+        setFragment(AttentionDistributionTestFragment.newInstance());
     }
 
     public void toReactionTest() {
@@ -728,6 +730,10 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         setFragment(AttentionStabilityTestFragment.newInstance());
     }
 
+    public void toAttentionVolumeTest() {
+        setFragment(AttentionVolumeTestFragment.newInstance());
+    }
+
     public void toFocusingTest() {
         setFragment(FocusingTestFragment.newInstance());
     }
@@ -736,8 +742,8 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         setFragment(ReactionResultsFragment.newInstance(args));
     }
 
-    public void toAttentionVolumeResults(Bundle args) {
-        setFragment(AttentionVolumeResultsFragment.newInstance(args));
+    public void toAttentionDistributionResults(Bundle args) {
+        setFragment(AttentionDistributionResultsFragment.newInstance(args));
     }
 
     public void toAttentionStabilityResults(Bundle args) {
@@ -750,6 +756,10 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
 
     public void toComplexMotorReactionResults(Bundle args) {
         setFragment(ComplexMotorReactionResultsFragment.newInstance(args));
+    }
+
+    public void toAttentionVolumeResults(Bundle args) {
+        setFragment(AttentionVolumeResultsFragment.newInstance(args));
     }
 
     public void toStatisticsReaction(StatisticsResult results) {

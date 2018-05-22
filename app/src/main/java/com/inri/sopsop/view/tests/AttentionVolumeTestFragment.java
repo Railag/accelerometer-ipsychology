@@ -1,61 +1,75 @@
 package com.inri.sopsop.view.tests;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
-import com.inri.sopsop.App;
 import com.inri.sopsop.BluetoothEventListener;
 import com.inri.sopsop.R;
-import com.inri.sopsop.model.Difficulty;
-import com.inri.sopsop.model.Figure;
+import com.inri.sopsop.Utils;
+import com.inri.sopsop.model.Answer;
 import com.inri.sopsop.model.Result;
+import com.inri.sopsop.model.Sign;
 import com.inri.sopsop.presenter.AttentionVolumeTestPresenter;
+import com.inri.sopsop.view.adapter.SignsAdapter;
 import com.inri.sopsop.view.base.BaseFragment;
 import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 import butterknife.BindView;
-import butterknife.OnClick;
+import butterknife.BindViews;
 import nucleus.factory.RequiresPresenter;
 
-/**
- * Created by Railag on 17.03.2017.
- */
 
 @RequiresPresenter(AttentionVolumeTestPresenter.class)
 public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTestPresenter> implements BluetoothEventListener {
 
-    private final static int MAX_FIGURES = 100;
+    private final static int[] backgroundIds = {R.drawable.background, R.drawable.background, R.drawable.background, R.drawable.background, R.drawable.background,
+            R.drawable.background, R.drawable.background, R.drawable.background, R.drawable.background, R.drawable.background};
 
-    private final static int BASE_TIME = 2100;
+    private final static int MAX_BACKGROUNDS = 1;
+
+    private final static int MIN_SIGNS = 5;
+    private final static int MAX_SIGNS = 12;
+
+    private final static int SIGNS_PER_LINE = 5;
+
+    @BindViews({R.id.sign1, R.id.sign2, R.id.sign3, R.id.sign4, R.id.sign5, R.id.sign6, R.id.sign7, R.id.sign8, R.id.sign9, R.id.sign10, R.id.sign11, R.id.sign12})
+    ImageView[] signImages;
+
+    @BindView(R.id.attentionBackground)
+    RelativeLayout attentionBackground;
+
+    @BindView(R.id.signsGrid)
+    RecyclerView signsGrid;
+
+    List<Sign> signsCounter = Arrays.asList(Sign.values());
+
+    int currentBackground = 0;
+
+    private int previousSelection;
+    private int currentSignSelection;
+
+    Random random = new Random();
 
     private Handler handler;
 
-    private int wins;
-    private int fails;
-    private int misses;
+    private long time;
+    private ArrayList<Answer> answers = new ArrayList<>();
 
-    @BindView(R.id.firstImage)
-    ImageView firstImage;
+    private SignsAdapter signsAdapter;
 
-    @BindView(R.id.secondImage)
-    ImageView secondImage;
-
-    Figure figure1;
-    Figure figure2;
-
-    private boolean active;
-
-    private int currentFigure = 0;
-
-    private Difficulty currentDiff;
+    private double resultTime;
+    private long winsCount;
+    private SignsAdapter.OnSignClickListener listener;
 
     public static AttentionVolumeTestFragment newInstance() {
 
@@ -68,121 +82,86 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
     @Override
     protected String getTitle() {
-        return getString(R.string.attentionDistributionTestTitle);
+        return getString(R.string.attentionVolumeTestTitle);
     }
 
     @Override
     protected int getViewId() {
-        return R.layout.fragment_test_figures;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        handler = new Handler();
-        getMainActivity().registerBluetoothListener(this);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return R.layout.fragment_test_attention_volume;
     }
 
     @Override
     protected void initView(View v) {
-        figure1 = Figure.random();
-        figure2 = Figure.random();
-        currentDiff = App.diff(getActivity());
+        handler = new Handler();
+
+        getMainActivity().registerBluetoothListener(this);
+
         next();
     }
 
     private void next() {
+        int startTime = 10000; // 10 seconds
+
+        resetSigns();
+
+        setupBackground();
+        setupSigns();
+
         handler.postDelayed(() -> {
-            if (getActivity() == null) {
-                return;
+            double result = Utils.calcTime(time);
+            Answer answer = new Answer();
+            answer.setTime(result);
+
+            answer.setErrorValue(1); // error
+
+            answer.setNumber(answers.size());
+
+            answers.add(answer);
+
+            time = System.nanoTime();
+
+            nextBackground();
+
+        }, startTime);
+    }
+
+    private void resetSigns() {
+        if (signImages != null && signImages.length > 0) {
+            for (ImageView image : signImages) {
+                image.setImageResource(0);
             }
+        }
+    }
 
-            if (active && figure1.equals(figure2)) {
-                misses++;
-            }
+    private void setupSigns() {
+        List<Sign> signs = Sign.randomSigns(MIN_SIGNS, MAX_SIGNS);
 
-            currentFigure++;
-            if (currentFigure >= MAX_FIGURES) {
-                Toast.makeText(getActivity(), "Wins = " + wins + ", Fails = " + fails, Toast.LENGTH_SHORT).show();
-                toNextTest();
-                return;
-            }
-
-            Figure temp1 = null, temp2 = null;
-
+        for (Sign sign : signs) {
             while (true) {
-                temp1 = Figure.random();
-                temp2 = Figure.random();
-
-                if (!figure1.equals(temp1) && !figure2.equals(temp2)) {
+                int position = random.nextInt(MAX_SIGNS);
+                if (signImages[position].getDrawable() == null) {
+                    signImages[position].setImageResource(sign.getDrawableId());
                     break;
                 }
             }
 
-            figure1 = temp1;
-            figure2 = temp2;
-
-            Resources res = getResources();
-
-            firstImage.setImageDrawable(res.getDrawable(figure1.getDrawableId()));
-            secondImage.setImageDrawable(res.getDrawable(figure2.getDrawableId()));
-            next();
-            active = true;
-            Log.i("DEBUG", currentFigure + " w:" + wins + " f:" + fails);
-        }, BASE_TIME / currentDiff.getLevel());
+            signsCounter.get(signsCounter.indexOf(sign)).shown();
+        }
     }
 
-    @OnClick(R.id.button)
-    public void click() {
+    private void setupBackground() {
+        int backgroundNumber = random.nextInt(backgroundIds.length);
+        attentionBackground.setBackgroundResource(backgroundIds[backgroundNumber]);
+    }
 
-        if (!active) {
-            return;
-        }
+    private void nextBackground() {
+        currentBackground++;
 
-        if (currentFigure > MAX_FIGURES) {
-            return;
-        }
-
-        if (figure1.equals(figure2)) {
-            wins++;
+        if (currentBackground >= MAX_BACKGROUNDS) {
+            toFinalSelection();
         } else {
-            fails++;
+            next();
         }
-
-        active = false;
-    }
-
-    private void toNextTest() {
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }
-
-        startLoading();
-        getPresenter().save(wins, fails, misses);
-    }
-
-    public void onSuccess(Result result) {
-        stopLoading();
-
-        if (result == null) {
-            onError(new IllegalArgumentException());
-            return;
-        }
-        if (result.invalid()) {
-            toast(result.error);
-            return;
-        }
-
-
-        Bundle args = new Bundle();
-        args.putInt(AttentionVolumeResultsFragment.RESULTS, wins);
-        getMainActivity().toAttentionVolumeResults(args);
-    }
-
-    public void onError(Throwable throwable) {
-        stopLoading();
-        throwable.printStackTrace();
     }
 
     @Override
@@ -197,48 +176,138 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
         }
     }
 
+    private void toFinalSelection() {
+        time = System.nanoTime();
+
+        listener = sign -> {
+            sign.setChosen(!sign.isChosen());
+
+            int chosenCounter = 0;
+            for (Sign s : signsCounter) {
+                if (s.isChosen()) {
+                    chosenCounter++;
+                }
+            }
+
+            if (chosenCounter >= MAX_SIGNS) {
+                toResults();
+            }
+        };
+
+        signsAdapter = new SignsAdapter();
+        signsAdapter.setSigns(signsCounter, listener);
+
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), SIGNS_PER_LINE);
+        signsGrid.setLayoutManager(manager);
+
+        signsGrid.setAdapter(signsAdapter);
+    }
+
+    private void toResults() {
+        List<Sign> chosenSigns = new ArrayList<>();
+        for (Sign s : signsCounter) {
+            if (s.isChosen()) {
+                chosenSigns.add(s);
+            }
+        }
+
+        winsCount = 0;
+
+        for (Sign s : chosenSigns) {
+            if (s.isChosen() && s.wasShown()) {
+                winsCount++;
+            }
+        }
+
+        resultTime = Utils.calcTime(time);
+
+        getPresenter().save(resultTime, winsCount);
+    }
+
+    public void onSuccess(Result result) {
+        stopLoading();
+
+        if (result == null) {
+            onError(new IllegalArgumentException());
+            return;
+        }
+        if (result.invalid()) {
+            toast(result.error);
+            return;
+        }
+
+        Bundle args = new Bundle();
+        args.putDouble(AttentionVolumeResultsFragment.TIME, resultTime);
+        args.putLong(AttentionVolumeResultsFragment.WINS, winsCount);
+        getMainActivity().toAttentionVolumeResults(args);
+    }
+
+    public void onError(Throwable throwable) {
+        stopLoading();
+        throwable.printStackTrace();
+    }
+
     @Override
     public void onLeft() {
+        if (currentSignSelection > 0) {
+            currentSignSelection--;
+            refreshSelection();
+        }
+    }
 
+    private void refreshSelection() {
+        signsCounter.get(previousSelection).setSelected(false);
+        signsCounter.get(currentSignSelection).setSelected(true);
+
+        previousSelection = currentSignSelection;
+
+        signsAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRight() {
-
+        if (currentSignSelection < signsCounter.size()) {
+            currentSignSelection++;
+            refreshSelection();
+        }
     }
 
     @Override
     public void onTop() {
-        click();
+        if (currentSignSelection > SIGNS_PER_LINE) {
+            currentSignSelection -= SIGNS_PER_LINE;
+            refreshSelection();
+        }
     }
 
     @Override
     public void onBottom() {
-
+        if (currentSignSelection + SIGNS_PER_LINE < signsCounter.size()) {
+            currentSignSelection += SIGNS_PER_LINE;
+            refreshSelection();
+        }
     }
 
     @Override
     public void onTopLeft() {
-
     }
 
     @Override
     public void onTopRight() {
-
+        if (listener != null) {
+            listener.onSignSelected(signsCounter.get(currentSignSelection));
+        }
     }
 
     @Override
     public void onBottomLeft() {
-
     }
 
     @Override
     public void onBottomRight() {
-
     }
 
     @Override
     public void onCenter() {
-
     }
 }

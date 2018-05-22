@@ -24,12 +24,15 @@
     <string name="attentionStabilityTitle">Устойчивость внимания</string>
     <string name="bluetoothSetupTitle">Установка соединения</string>
     <string name="focusingTestTitle">Концентрация внимания</string>
+    <string name="attentionVolumeTestTitle">Объем внимания</string>
 
 
     <string name="resultsTitle">Результаты</string>
     <string name="errorsCount">Количество ошибок:</string>
     <string name="missesCount">Количество пропущенных:</string>
     <string name="linesCount">Всего строк:</string>
+    <string name="timeCount">Затраченное на выбор время:</string>
+    <string name="rightCount">Верных выборов:</string>
     <string name="save">Сохранить</string>
     <string name="minReactTime">Минимальное время реакции:</string>
     <string name="maxReactTime">Максимальное время реакции:</string>
@@ -53,7 +56,7 @@
     <string name="instruction_reaction"><![CDATA[Как только появится белый экран - нажмите на него. <br> <br>
 
     Попытка дается 10 раз, после чего определяется среднее значение. ]]></string>
-    <string name="instruction_attention_volume"> Нажмите на кнопку, когда на экране появятся две одинаковые фигуры. </string>
+    <string name="instruction_attention_distribution"> Нажмите на кнопку, когда на экране появятся две одинаковые фигуры. </string>
     <string name="instruction_complex_motor_reaction"><![CDATA[Если экран загорается <font color="green">зеленым</font> - нажмите <font color="green">зеленую</font> кнопку.<br><br>
     Если <font color="red">красным</font> - <font color="red">красную</font>.<br><br>
     Если <font color="yellow">желтым</font> - <font color="yellow">ничего</font> нажимать не нужно.]]></string>

@@ -69,7 +69,7 @@ public class LandingFragment extends SimpleFragment {
     }
 
     @OnClick(R.id.distribution)
-    public void toVolume() {
+    public void toDistribution() {
         getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_DISTRIBUTION);
     }
 
@@ -81,5 +81,10 @@ public class LandingFragment extends SimpleFragment {
     @OnClick(R.id.focusing)
     public void toFocusing() {
         getMainActivity().toInstructionFragment(InstructionFragment.Test.FOCUSING);
+    }
+
+    @OnClick(R.id.volume)
+    public void toVolume() {
+        getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_VOLUME);
     }
 }
