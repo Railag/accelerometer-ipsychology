@@ -21,6 +21,9 @@
     <string name="reactionTitle">Скорость реакции</string>
     <string name="attentionDistributionTestTitle">Распределение внимания</string>
     <string name="complexMotorReactionTestTitle">Сложная двигательная реакция</string>
+    <string name="attentionStabilityTitle">Устойчивость внимания</string>
+    <string name="bluetoothSetupTitle">Установка соединения</string>
+
 
     <string name="resultsTitle">Результаты</string>
     <string name="errorsCount">Количество ошибок:</string>
@@ -41,6 +44,7 @@
     <string name="instruction_complex_motor_reaction"><![CDATA[Если экран загорается <font color="green">зеленым</font> - нажмите <font color="green">зеленую</font> кнопку.<br><br>
     Если <font color="red">красным</font> - <font color="red">красную</font>.<br><br>
     Если <font color="yellow">желтым</font> - <font color="yellow">ничего</font> нажимать не нужно.]]></string>
+    <string name="instruction_attention_stability"> На экране будут меняться цифры. В какой-то момент появится красный квадрат, который закроет цифру. После этого снова появится цифра, которую нужно увидеть и нажать левую кнопку, если цифра четная, или правую кнопку, если цифра нечетная. Цифра появится лишь на короткое время, и за ней сразу последует другой красный квадрат.</string>
     <string name="landingScreenTitle">Стартовая страница</string>
     <string name="info">Профиль</string>
     <string name="testing">Тестирование</string>

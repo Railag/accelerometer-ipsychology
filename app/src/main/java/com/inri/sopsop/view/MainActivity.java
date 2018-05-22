@@ -14,10 +14,12 @@ import com.inri.sopsop.App;
 import com.inri.sopsop.R;
 import com.inri.sopsop.model.StatisticsResult;
 import com.inri.sopsop.presenter.MainPresenter;
+import com.inri.sopsop.view.results.AttentionStabilityResultsFragment;
 import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 import com.inri.sopsop.view.results.ComplexMotorReactionResultsFragment;
 import com.inri.sopsop.view.results.ReactionResultsFragment;
 import com.inri.sopsop.view.results.ResultScreen;
+import com.inri.sopsop.view.tests.AttentionStabilityTestFragment;
 import com.inri.sopsop.view.tests.AttentionVolumeTestFragment;
 import com.inri.sopsop.view.tests.ComplexMotorReactionTestFragment;
 import com.inri.sopsop.view.tests.ReactionTestFragment;
@@ -236,12 +238,20 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> {
         setFragment(ComplexMotorReactionTestFragment.newInstance());
     }
 
+    public void toAttentionStabilityTest() {
+        setFragment(AttentionStabilityTestFragment.newInstance());
+    }
+
     public void toReactionResults(Bundle args) {
         setFragment(ReactionResultsFragment.newInstance(args));
     }
 
     public void toAttentionVolumeResults(Bundle args) {
         setFragment(AttentionVolumeResultsFragment.newInstance(args));
+    }
+
+    public void toAttentionStabilityResults(Bundle args) {
+        setFragment(AttentionStabilityResultsFragment.newInstance(args));
     }
 
     public void toComplexMotorReactionResults(Bundle args) {

@@ -11,9 +11,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
-/**
- * Created by firrael on 25.05.2016.
- */
 public interface RConnectorService {
     //String API_ENDPOINT = "http://127.0.0.1:3000";
     //String API_ENDPOINT = "http://10.0.3.2:3000";
@@ -46,6 +43,11 @@ public interface RConnectorService {
     @FormUrlEncoded
     @POST("/user/results_complex")
     Observable<Result> sendComplexMotorReactionResults(@Field("user_id") long userId, @Field("wins") long wins, @Field("fails") long fails, @Field("misses") long misses);
+
+    @FormUrlEncoded
+    @POST("/user/results_stability")
+    Observable<Result> sendAttentionStabilityResults(@Field("user_id") long userId, @Field("times[]") ArrayList<Double> times, @Field("misses") long misses, @Field("errors_value") long errors);
+
 
     @FormUrlEncoded
     @POST("/user/results_volume")
