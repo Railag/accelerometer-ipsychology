@@ -56,7 +56,7 @@ public class AttentionDistributionResultsFragment extends SimpleFragment impleme
 
     @Override
     protected int getViewId() {
-        return R.layout.results_attention_volume_layout;
+        return R.layout.results_attention_distribution_layout;
     }
 
     @Override

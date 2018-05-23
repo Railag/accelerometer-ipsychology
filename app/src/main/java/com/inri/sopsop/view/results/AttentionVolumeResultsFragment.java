@@ -124,7 +124,7 @@ public class AttentionVolumeResultsFragment extends SimpleFragment implements Re
 
     @Override
     protected int getViewId() {
-        return R.layout.results_ram_volume_layout;
+        return R.layout.results_attention_volume_layout;
     }
 
     @Override
@@ -135,11 +135,11 @@ public class AttentionVolumeResultsFragment extends SimpleFragment implements Re
 
         if (args != null) {
             if (args.containsKey(TIME)) {
-                time.setText(String.valueOf(args.getInt(TIME)));
+                time.setText(String.valueOf(args.getDouble(TIME)));
             }
 
             if (args.containsKey(WINS)) {
-                winsCount.setText(String.valueOf(args.getInt(WINS)));
+                winsCount.setText(String.valueOf(args.getLong(WINS)));
             }
         }
     }

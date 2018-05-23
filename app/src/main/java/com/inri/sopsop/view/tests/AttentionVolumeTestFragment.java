@@ -37,8 +37,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
     private final static int MAX_BACKGROUNDS = 1;
 
-    private final static int MIN_SIGNS = 5;
-    private final static int MAX_SIGNS = 12;
+    private final static int SIGNS_TYPES = 12;
 
     private final static int SIGNS_PER_LINE = 5;
 
@@ -51,7 +50,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     @BindView(R.id.signsGrid)
     RecyclerView signsGrid;
 
-    List<Sign> signsCounter = Arrays.asList(Sign.values());
+    List<Sign> signsCounter;
 
     int currentBackground = 0;
 
@@ -96,6 +95,8 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
         getMainActivity().registerBluetoothListener(this);
 
+        signsCounter = Arrays.asList(Sign.values());
+
         next();
     }
 
@@ -134,18 +135,18 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     }
 
     private void setupSigns() {
-        List<Sign> signs = Sign.randomSigns(MIN_SIGNS, MAX_SIGNS);
+        List<Sign> signs = Sign.randomSigns(SIGNS_TYPES);
 
         for (Sign sign : signs) {
             while (true) {
-                int position = random.nextInt(MAX_SIGNS);
+                int position = random.nextInt(SIGNS_TYPES);
                 if (signImages[position].getDrawable() == null) {
                     signImages[position].setImageResource(sign.getDrawableId());
                     break;
                 }
             }
 
-            signsCounter.get(signsCounter.indexOf(sign)).shown();
+            signsCounter.get(signsCounter.indexOf(sign)).setShown(true);
         }
     }
 
@@ -177,7 +178,13 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     }
 
     private void toFinalSelection() {
+        for (ImageView sign : signImages) {
+            sign.setVisibility(View.GONE);
+        }
+
         time = System.nanoTime();
+
+        signsCounter.get(0).setSelected(true);
 
         listener = sign -> {
             sign.setChosen(!sign.isChosen());
@@ -189,8 +196,10 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
                 }
             }
 
-            if (chosenCounter >= MAX_SIGNS) {
+            if (chosenCounter >= SIGNS_TYPES) {
                 toResults();
+            } else {
+                signsAdapter.notifyDataSetChanged();
             }
         };
 
@@ -216,6 +225,8 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
         for (Sign s : chosenSigns) {
             if (s.isChosen() && s.wasShown()) {
                 winsCount++;
+                s.setChosen(false);
+                s.setShown(false);
             }
         }
 

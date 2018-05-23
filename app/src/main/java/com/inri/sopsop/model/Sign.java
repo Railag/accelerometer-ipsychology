@@ -84,17 +84,15 @@ public enum Sign {
         return wasShown;
     }
 
-    public void shown() {
-        wasShown = true;
+    public void setShown(boolean shown) {
+        wasShown = shown;
     }
 
     public void reset() {
         wasShown = false;
     }
 
-    public static List<Sign> randomSigns(int min, int max) {
-        int size = random.nextInt((max - min) + 1) + min;
-
+    public static List<Sign> randomSigns(int size) {
         List<Sign> signs = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Sign sign = randomEnum(Sign.class);

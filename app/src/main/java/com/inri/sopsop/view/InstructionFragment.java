@@ -64,16 +64,16 @@ public class InstructionFragment extends SimpleFragment {
 
             switch (test) {
                 case FOCUSING:
-                    instruction = getString(R.string.instruction_reaction);
+                    instruction = getString(R.string.instruction_focusing);
                     break;
                 case ATTENTION_DISTRIBUTION:
                     instruction = getString(R.string.instruction_attention_distribution);
                     break;
                 case ATTENTION_STABILITY:
-                    instruction = getString(R.string.instruction_complex_motor_reaction);
+                    instruction = getString(R.string.instruction_attention_stability);
                     break;
                 case ATTENTION_VOLUME:
-                    instruction = getString(R.string.instruction_complex_motor_reaction);
+                    instruction = getString(R.string.instruction_attention_volume);
                     break;
             }
 
