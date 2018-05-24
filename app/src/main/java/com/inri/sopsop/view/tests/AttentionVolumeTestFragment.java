@@ -95,9 +95,12 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     protected void initView(View v) {
         handler = new Handler();
 
-        getMainActivity().registerBluetoothListener(this);
-
         signsCounter = Arrays.asList(Sign.values());
+        for (Sign sign : signsCounter) {
+            sign.setChosen(false);
+            sign.setSelected(false);
+            sign.setShown(false);
+        }
 
         next();
     }
@@ -168,14 +171,27 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getMainActivity() != null) {
+            getMainActivity().registerBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
-        }
-
-        if (getMainActivity() != null) {
-            getMainActivity().unregisterBluetoothListener(this);
         }
     }
 
@@ -286,7 +302,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     @Override
     public void onRight() {
         if (isSelection) {
-            if (currentSignSelection < signsCounter.size()) {
+            if (currentSignSelection < signsCounter.size() -1) {
                 currentSignSelection++;
                 refreshSelection();
             }
@@ -296,7 +312,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     @Override
     public void onTop() {
         if (isSelection) {
-            if (currentSignSelection > SIGNS_PER_LINE) {
+            if (currentSignSelection >= SIGNS_PER_LINE) {
                 currentSignSelection -= SIGNS_PER_LINE;
                 refreshSelection();
             }
@@ -306,7 +322,7 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
     @Override
     public void onBottom() {
         if (isSelection) {
-            if (currentSignSelection + SIGNS_PER_LINE < signsCounter.size()) {
+            if (currentSignSelection + SIGNS_PER_LINE < signsCounter.size() -1) {
                 currentSignSelection += SIGNS_PER_LINE;
                 refreshSelection();
             }

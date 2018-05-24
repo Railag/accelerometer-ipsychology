@@ -83,8 +83,6 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         handler = new Handler();
 
-        getMainActivity().registerBluetoothListener(this);
-
         Random randomTime = new Random();
 
         Difficulty diff = App.diff(getActivity());
@@ -232,14 +230,27 @@ public class AttentionStabilityTestFragment extends BaseFragment<AttentionStabil
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getMainActivity() != null) {
+            getMainActivity().registerBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
-        }
-
-        if (getMainActivity() != null) {
-            getMainActivity().unregisterBluetoothListener(this);
         }
     }
 

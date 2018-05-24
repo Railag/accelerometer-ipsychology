@@ -44,9 +44,8 @@ public class BluetoothSetupFragment extends SimpleFragment {
         return R.layout.fragment_bluetooth_setup;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void initView(View v) {
         adapter = new BluetoothDeviceAdapter();
 
         List<BluetoothDevice> pairedDevices = getMainActivity().getPairedDevices();
@@ -58,7 +57,5 @@ public class BluetoothSetupFragment extends SimpleFragment {
         list.setLayoutManager(manager);
 
         list.setAdapter(adapter);
-
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

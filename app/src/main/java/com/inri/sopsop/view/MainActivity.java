@@ -75,13 +75,13 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
     private final static int REQUEST_ENABLE_BT = 101;
 
     private final static int DEGREES_MIN = 1;
-    private final static int DEGREES_MAX = 3;
+    private final static int DEGREES_MAX = 30;
 
     private final static String BLUETOOTH_TAG = "Bluetooth";
     public final static double THRESHOLD_ACCELEROMETER_MAX = 7.0;
     private final static double THRESHOLD_ACCELEROMETER_MIN = 1.0;
 
-    private Handler handler;
+    private Handler handler = new Handler();
     private final static int INTERVAL = 10;
 
     private int counter = 0;
@@ -204,7 +204,7 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
     }
 
     private void prepareBluetoothData() {
-        thresholdMin = calculateThreshold(DEGREES_MIN);
+        thresholdMin = calculateThreshold(DEGREES_MAX);
         thresholdMax = calculateThreshold(DEGREES_MAX);
     }
 
@@ -333,7 +333,7 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
                     double currentY = yValues[i];
 
                     if (currentX < thresholdMin && currentX > -thresholdMin && currentY < thresholdMin && currentY > -thresholdMin) {
-                        Log.i(BLUETOOTH_TAG, "onMinThreshold");
+                        Log.i(BLUETOOTH_TAG, "onCenter");
                         bluetoothLock = false;
                         listener.onCenter();
                     }

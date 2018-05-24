@@ -101,7 +101,6 @@ public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> im
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         handler = new Handler();
-        getMainActivity().registerBluetoothListener(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -288,14 +287,26 @@ public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> im
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getMainActivity() != null) {
+            getMainActivity().registerBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
-        }
-
-        if (getMainActivity() != null) {
-            getMainActivity().unregisterBluetoothListener(this);
         }
     }
 
@@ -308,7 +319,7 @@ public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> im
     }
 
     private void refreshSelection() {
-        buttonViews[previousSelection].setBackground(null);
+        buttonViews[previousSelection].setBackgroundResource(android.R.color.darker_gray);
 
         previousSelection = currentButtonSelection;
 
@@ -317,7 +328,7 @@ public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> im
 
     @Override
     public void onRight() {
-        if (currentButtonSelection < BUTTONS_COUNT) {
+        if (currentButtonSelection < BUTTONS_COUNT - 1) {
             currentButtonSelection++;
             refreshSelection();
         }
@@ -333,7 +344,7 @@ public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> im
 
     @Override
     public void onBottom() {
-        if (currentButtonSelection > BUTTONS_PER_LINE) {
+        if (currentButtonSelection >= BUTTONS_PER_LINE) {
             currentButtonSelection -= BUTTONS_PER_LINE;
             refreshSelection();
         }
