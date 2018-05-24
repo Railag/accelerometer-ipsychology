@@ -72,7 +72,7 @@ public class SplashFragment extends BaseFragment<SplashPresenter> {
             return;
         }
         User.save(result, getActivity());
-        getMainActivity().toLanding();
+        getMainActivity().toBluetoothFragment();
     }
 
     public void onError(Throwable error) {

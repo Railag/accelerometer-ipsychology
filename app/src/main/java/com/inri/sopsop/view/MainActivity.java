@@ -266,7 +266,7 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
             return;
         }
 
-        if (currentFragment instanceof LandingFragment) {
+        if (currentFragment instanceof LandingFragment || currentFragment instanceof BluetoothSetupFragment) {
             finish();
             return;
         }
@@ -311,12 +311,12 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
 
             double[] xValues = new double[this.x.size()];
             for (int i = 0; i < this.x.size(); i++) {
-                xValues[i] = (double) adjust(this.x.get(i).floatValue(), realWidth, true);
+                xValues[i] = this.x.get(i);//(double) adjust(this.x.get(i).floatValue(), realWidth, true);
             }
 
             double[] yValues = new double[this.y.size()];
             for (int i = 0; i < this.y.size(); i++) {
-                yValues[i] = (double) adjust(this.y.get(i), realHeight, false);
+                yValues[i] = this.y.get(i);//(double) adjust(this.y.get(i), realHeight, false);
             }
 
             sendToBluetoothListeners(xValues, yValues);
@@ -342,39 +342,44 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
                         return;
                     }
 
+                    if (bluetoothLock) {
+                        return;
+                    }
+
                     if (currentX > thresholdMax && currentY < thresholdMax && currentY > -thresholdMax) { // left
                         bluetoothLock = true;
                         Log.i(BLUETOOTH_TAG, "onLeft");
                         listener.onLeft();
-                    } else if (currentX > thresholdMax && currentY > thresholdMax) { // top left
-                        bluetoothLock = true;
-                        Log.i(BLUETOOTH_TAG, "onTopLeft");
-                        listener.onTopLeft();
-                    } else if (currentX > thresholdMax && currentY < -thresholdMax) { // bottom left
+                    } else if (currentX > thresholdMax && currentY > thresholdMax) { // bottom left
                         bluetoothLock = true;
                         Log.i(BLUETOOTH_TAG, "onBottomLeft");
                         listener.onBottomLeft();
+                    } else if (currentX > thresholdMax && currentY < -thresholdMax) { // top left
+                        bluetoothLock = true;
+                        Log.i(BLUETOOTH_TAG, "onTopLeft");
+                        listener.onTopLeft();
                     } else if (currentX < -thresholdMax && currentY < thresholdMax && currentY > -thresholdMax) { // right
                         bluetoothLock = true;
                         Log.i(BLUETOOTH_TAG, "onRight");
                         listener.onRight();
-                    } else if (currentX < -thresholdMax && currentY > thresholdMax) { // top right
-                        bluetoothLock = true;
-                        Log.i(BLUETOOTH_TAG, "onTopRight");
-                        listener.onTopRight();
-                    } else if (currentX < -thresholdMax && currentY < -thresholdMax) { // bottom right
+                    } else if (currentX < -thresholdMax && currentY > thresholdMax) { // bottom right
                         bluetoothLock = true;
                         Log.i(BLUETOOTH_TAG, "onBottomRight");
                         listener.onBottomRight();
-                    } else if (currentY > thresholdMax && currentX < thresholdMax && currentX > -thresholdMax) { // top
+                    } else if (currentX < -thresholdMax && currentY < -thresholdMax) { // top right
                         bluetoothLock = true;
-                        Log.i(BLUETOOTH_TAG, "onTop");
-                        listener.onTop();
-                    } else if (currentY < -thresholdMax && currentX < thresholdMax && currentX > -thresholdMax) { // bottom
+                        Log.i(BLUETOOTH_TAG, "onTopRight");
+                        listener.onTopRight();
+                    } else if (currentY > thresholdMax && currentX < thresholdMax && currentX > -thresholdMax) { // bottom
                         bluetoothLock = true;
                         Log.i(BLUETOOTH_TAG, "onBottom");
                         listener.onBottom();
+                    } else if (currentY < -thresholdMax && currentX < thresholdMax && currentX > -thresholdMax) { // top
+                        bluetoothLock = true;
+                        Log.i(BLUETOOTH_TAG, "onTop");
+                        listener.onTop();
                     }
+
 
                 }
             }
@@ -556,6 +561,7 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
                     Log.d(TAG, "Input stream was disconnected", e);
                     break;
                 }
+
             }
         }
 
@@ -592,7 +598,7 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
                     Log.i(TAG, isX ? "X: " : "Y: " + value);
 
                     addValue(value);
-                    if (i == PACKAGE_SIZE) {
+                    if (i == PACKAGE_SIZE - 1) {
                         isX = false;
                     }
                 }
@@ -772,5 +778,9 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
 
     public void toStatisticsDistribution(StatisticsResult results) {
         setFragment(StatisticsDistributionFragment.newInstance(results));
+    }
+
+    public void toBluetoothFragment() {
+        setFragment(BluetoothSetupFragment.newInstance());
     }
 }

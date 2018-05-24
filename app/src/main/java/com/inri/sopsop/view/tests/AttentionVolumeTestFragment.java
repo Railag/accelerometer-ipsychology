@@ -54,6 +54,8 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
     int currentBackground = 0;
 
+    private boolean isSelection;
+
     private int previousSelection;
     private int currentSignSelection;
 
@@ -210,6 +212,8 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
         signsGrid.setLayoutManager(manager);
 
         signsGrid.setAdapter(signsAdapter);
+
+        isSelection = true;
     }
 
     private void toResults() {
@@ -260,9 +264,11 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
     @Override
     public void onLeft() {
-        if (currentSignSelection > 0) {
-            currentSignSelection--;
-            refreshSelection();
+        if (isSelection) {
+            if (currentSignSelection > 0) {
+                currentSignSelection--;
+                refreshSelection();
+            }
         }
     }
 
@@ -272,30 +278,38 @@ public class AttentionVolumeTestFragment extends BaseFragment<AttentionVolumeTes
 
         previousSelection = currentSignSelection;
 
-        signsAdapter.notifyDataSetChanged();
+        if (signsAdapter != null) {
+            signsAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onRight() {
-        if (currentSignSelection < signsCounter.size()) {
-            currentSignSelection++;
-            refreshSelection();
+        if (isSelection) {
+            if (currentSignSelection < signsCounter.size()) {
+                currentSignSelection++;
+                refreshSelection();
+            }
         }
     }
 
     @Override
     public void onTop() {
-        if (currentSignSelection > SIGNS_PER_LINE) {
-            currentSignSelection -= SIGNS_PER_LINE;
-            refreshSelection();
+        if (isSelection) {
+            if (currentSignSelection > SIGNS_PER_LINE) {
+                currentSignSelection -= SIGNS_PER_LINE;
+                refreshSelection();
+            }
         }
     }
 
     @Override
     public void onBottom() {
-        if (currentSignSelection + SIGNS_PER_LINE < signsCounter.size()) {
-            currentSignSelection += SIGNS_PER_LINE;
-            refreshSelection();
+        if (isSelection) {
+            if (currentSignSelection + SIGNS_PER_LINE < signsCounter.size()) {
+                currentSignSelection += SIGNS_PER_LINE;
+                refreshSelection();
+            }
         }
     }
 

@@ -73,7 +73,7 @@ public class TimeFragment extends BaseFragment<TimePresenter> {
             return;
         }
         User.save(result, getActivity());
-        getMainActivity().toLanding();
+        getMainActivity().toBluetoothFragment();
     }
 
     public void onError(Throwable error) {

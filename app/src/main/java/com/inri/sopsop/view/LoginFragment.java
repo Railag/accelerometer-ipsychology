@@ -72,7 +72,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
             return;
         }
         User.save(result, getActivity());
-        getMainActivity().toLanding();
+        getMainActivity().toBluetoothFragment();
     }
 
     public void onError(Throwable error) {
