@@ -38,8 +38,6 @@ import com.inri.sopsop.view.results.FocusingResultsFragment;
 import com.inri.sopsop.view.results.ReactionResultsFragment;
 import com.inri.sopsop.view.results.ResultScreen;
 import com.inri.sopsop.view.tests.AttentionDistributionTestFragment;
-import com.inri.sopsop.view.tests.AttentionStabilityTestFragment;
-import com.inri.sopsop.view.tests.AttentionVolumeTestFragment;
 import com.inri.sopsop.view.tests.ComplexMotorReactionTestFragment;
 import com.inri.sopsop.view.tests.FocusingTestFragment;
 import com.inri.sopsop.view.tests.ReactionTestFragment;
@@ -730,14 +728,6 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
 
     public void toComplexMotorReactionTest() {
         setFragment(ComplexMotorReactionTestFragment.newInstance());
-    }
-
-    public void toAttentionStabilityTest() {
-        setFragment(AttentionStabilityTestFragment.newInstance());
-    }
-
-    public void toAttentionVolumeTest() {
-        setFragment(AttentionVolumeTestFragment.newInstance());
     }
 
     public void toFocusingTest() {

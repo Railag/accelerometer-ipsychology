@@ -32,9 +32,6 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import nucleus.factory.RequiresPresenter;
 
-/**
- * Created by Railag on 16.03.2017.
- */
 
 @RequiresPresenter(FocusingTestPresenter.class)
 public class FocusingTestFragment extends BaseFragment<FocusingTestPresenter> implements BluetoothEventListener {

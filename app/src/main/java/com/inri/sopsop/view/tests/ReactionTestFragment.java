@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.inri.sopsop.App;
+import com.inri.sopsop.BluetoothEventListener;
 import com.inri.sopsop.R;
 import com.inri.sopsop.Utils;
 import com.inri.sopsop.model.Difficulty;
@@ -26,11 +27,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import nucleus.factory.RequiresPresenter;
 
-/**
- * Created by Railag on 07.11.2016.
- */
+
 @RequiresPresenter(ReactionTestPresenter.class)
-public class ReactionTestFragment extends BaseFragment<ReactionTestPresenter> {
+public class ReactionTestFragment extends BaseFragment<ReactionTestPresenter> implements BluetoothEventListener {
 
 
     private final static int MAX_COUNT = 10;
@@ -165,5 +164,66 @@ public class ReactionTestFragment extends BaseFragment<ReactionTestPresenter> {
     public void onError(Throwable throwable) {
         stopLoading();
         throwable.printStackTrace();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getMainActivity() != null) {
+            getMainActivity().registerBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onLeft() {
+
+    }
+
+    @Override
+    public void onRight() {
+
+    }
+
+    @Override
+    public void onTop() {
+
+    }
+
+    @Override
+    public void onBottom() {
+        click();
+    }
+
+    @Override
+    public void onTopLeft() {
+
+    }
+
+    @Override
+    public void onTopRight() {
+
+    }
+
+    @Override
+    public void onBottomLeft() {
+
+    }
+
+    @Override
+    public void onBottomRight() {
+
+    }
+
+    @Override
+    public void onCenter() {
+
     }
 }

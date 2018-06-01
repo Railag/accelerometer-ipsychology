@@ -119,7 +119,7 @@
         android:textColor="@color/white" />
 
     <Button
-        android:id="@+id/stability"
+        android:id="@+id/complexMotorReaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -127,11 +127,11 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
         android:padding="10dp"
-        android:text="@string/attentionStabilityTitle"
+        android:text="@string/complexMotorReactionTestTitle"
         android:textColor="@color/white" />
 
     <Button
-        android:id="@+id/volume"
+        android:id="@+id/reaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -139,7 +139,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
         android:padding="10dp"
-        android:text="@string/attentionVolumeTestTitle"
+        android:text="@string/reactionTitle"
         android:textColor="@color/white" />
 
 

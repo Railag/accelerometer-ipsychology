@@ -29,10 +29,6 @@ public interface RConnectorService {
     Observable<UserResult> createAccount(@Field("login") String login, @Field("password") String password, @Field("email") String email, @Field("age") int age, @Field("time") int time);
 
     @FormUrlEncoded
-    @POST("/user/fcm_token")
-    Observable<Result> sendFCMToken(@Field("user_id") long userId, @Field("fcm_token") String fcmToken);
-
-    @FormUrlEncoded
     @POST("/user/update")
     Observable<UserResult> updateInfo(@Field("user_id") long userId, @Field("email") String email, @Field("age") int age, @Field("time") int time);
 
@@ -45,20 +41,12 @@ public interface RConnectorService {
     Observable<Result> sendComplexMotorReactionResults(@Field("user_id") long userId, @Field("wins") long wins, @Field("fails") long fails, @Field("misses") long misses);
 
     @FormUrlEncoded
-    @POST("/user/results_stability")
-    Observable<Result> sendAttentionStabilityResults(@Field("user_id") long userId, @Field("times[]") ArrayList<Double> times, @Field("misses") long misses, @Field("errors_value") long errors);
-
-    @FormUrlEncoded
     @POST("/user/results_focusing")
     Observable<Result> sendFocusingResults(@Field("user_id") long userId, @Field("times[]") ArrayList<Double> times, @Field("error_values[]") ArrayList<Long> errors);
 
     @FormUrlEncoded
     @POST("/user/results_volume")
     Observable<Result> sendAttentionDistributionResults(@Field("user_id") long userId, @Field("wins") long wins, @Field("fails") long fails, @Field("misses") long misses);
-
-    @FormUrlEncoded
-    @POST("/user/results_attention_volume")
-    Observable<Result> sendAttentionVolumeResults(@Field("user_id") long userId, @Field("time") Double time, @Field("wins") long wins);
 
     @FormUrlEncoded
     @POST("/user/statistics")

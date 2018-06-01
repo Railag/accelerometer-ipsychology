@@ -22,8 +22,8 @@ public class InstructionFragment extends SimpleFragment {
     public enum Test {
         FOCUSING,
         ATTENTION_DISTRIBUTION,
-        ATTENTION_STABILITY,
-        ATTENTION_VOLUME
+        COMPLEX_MOTOR_REACTION,
+        REACTION
     }
 
     public static InstructionFragment newInstance(Test test) {
@@ -69,11 +69,11 @@ public class InstructionFragment extends SimpleFragment {
                 case ATTENTION_DISTRIBUTION:
                     instruction = getString(R.string.instruction_attention_distribution);
                     break;
-                case ATTENTION_STABILITY:
-                    instruction = getString(R.string.instruction_attention_stability);
+                case COMPLEX_MOTOR_REACTION:
+                    instruction = getString(R.string.instruction_complex_motor_reaction);
                     break;
-                case ATTENTION_VOLUME:
-                    instruction = getString(R.string.instruction_attention_volume);
+                case REACTION:
+                    instruction = getString(R.string.instruction_reaction);
                     break;
             }
 
@@ -90,11 +90,11 @@ public class InstructionFragment extends SimpleFragment {
             case ATTENTION_DISTRIBUTION:
                 getMainActivity().toAttentionDistributionTest();
                 break;
-            case ATTENTION_STABILITY:
-                getMainActivity().toAttentionStabilityTest();
+            case COMPLEX_MOTOR_REACTION:
+                getMainActivity().toComplexMotorReactionTest();
                 break;
-            case ATTENTION_VOLUME:
-                getMainActivity().toAttentionVolumeTest();
+            case REACTION:
+                getMainActivity().toReactionTest();
                 break;
         }
     }

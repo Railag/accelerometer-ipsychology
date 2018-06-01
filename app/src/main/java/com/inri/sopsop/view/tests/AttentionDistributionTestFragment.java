@@ -25,9 +25,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import nucleus.factory.RequiresPresenter;
 
-/**
- * Created by Railag on 17.03.2017.
- */
 
 @RequiresPresenter(AttentionDistributionTestPresenter.class)
 public class AttentionDistributionTestFragment extends BaseFragment<AttentionDistributionTestPresenter> implements BluetoothEventListener {

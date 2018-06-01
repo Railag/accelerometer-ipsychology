@@ -1,7 +1,6 @@
 package com.inri.sopsop.view.tests;
 
 import android.content.res.Resources;
-import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.inri.sopsop.AccelerometerListener;
 import com.inri.sopsop.App;
+import com.inri.sopsop.BluetoothEventListener;
 import com.inri.sopsop.R;
 import com.inri.sopsop.model.Difficulty;
 import com.inri.sopsop.model.MotorCircle;
@@ -24,12 +23,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import nucleus.factory.RequiresPresenter;
 
-/**
- * Created by Railag on 19.04.2017.
- */
 
 @RequiresPresenter(ComplexMotorReactionTestPresenter.class)
-public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorReactionTestPresenter> implements AccelerometerListener {
+public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorReactionTestPresenter> implements BluetoothEventListener {
 
     private final static int MAX_COUNT = 20;
 
@@ -132,6 +128,23 @@ public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorR
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getMainActivity() != null) {
+            getMainActivity().registerBluetoothListener(this);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getMainActivity() != null) {
+            getMainActivity().unregisterBluetoothListener(this);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -215,12 +228,37 @@ public class ComplexMotorReactionTestFragment extends BaseFragment<ComplexMotorR
     }
 
     @Override
-    public void onMinThreshold() {
+    public void onTop() {
 
     }
 
     @Override
-    public void onUpdate(double x, double y, double z) {
+    public void onBottom() {
+
+    }
+
+    @Override
+    public void onTopLeft() {
+
+    }
+
+    @Override
+    public void onTopRight() {
+
+    }
+
+    @Override
+    public void onBottomLeft() {
+
+    }
+
+    @Override
+    public void onBottomRight() {
+
+    }
+
+    @Override
+    public void onCenter() {
 
     }
 }

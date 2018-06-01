@@ -73,9 +73,9 @@ public class LandingFragment extends SimpleFragment {
         getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_DISTRIBUTION);
     }
 
-    @OnClick(R.id.stability)
-    public void toStability() {
-        getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_STABILITY);
+    @OnClick(R.id.complexMotorReaction)
+    public void toComplexMotorReaction() {
+        getMainActivity().toInstructionFragment(InstructionFragment.Test.COMPLEX_MOTOR_REACTION);
     }
 
     @OnClick(R.id.focusing)
@@ -83,8 +83,8 @@ public class LandingFragment extends SimpleFragment {
         getMainActivity().toInstructionFragment(InstructionFragment.Test.FOCUSING);
     }
 
-    @OnClick(R.id.volume)
-    public void toVolume() {
-        getMainActivity().toInstructionFragment(InstructionFragment.Test.ATTENTION_VOLUME);
+    @OnClick(R.id.reaction)
+    public void toReaction() {
+        getMainActivity().toInstructionFragment(InstructionFragment.Test.REACTION);
     }
 }
