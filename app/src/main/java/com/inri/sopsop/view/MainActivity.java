@@ -31,8 +31,6 @@ import com.inri.sopsop.model.StatisticsResult;
 import com.inri.sopsop.presenter.MainPresenter;
 import com.inri.sopsop.view.adapter.BluetoothDeviceAdapter;
 import com.inri.sopsop.view.results.AttentionDistributionResultsFragment;
-import com.inri.sopsop.view.results.AttentionStabilityResultsFragment;
-import com.inri.sopsop.view.results.AttentionVolumeResultsFragment;
 import com.inri.sopsop.view.results.ComplexMotorReactionResultsFragment;
 import com.inri.sopsop.view.results.FocusingResultsFragment;
 import com.inri.sopsop.view.results.ReactionResultsFragment;
@@ -163,8 +161,10 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
     };
 
     BluetoothDeviceAdapter.OnDeviceClickListener bluetoothListener = device -> {
+        toLanding();
+
         // start bluetooth host
-        acceptThread = new MainActivity.AcceptThread(device);
+        acceptThread = new AcceptThread(device);
         acceptThread.start();
     };
 
@@ -480,7 +480,6 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         runOnUiThread(() -> {
             stopLoading();
             connected = true;
-            toLanding();
         });
 
         connectedThread = new ConnectedThread(socket);
@@ -742,20 +741,12 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         setFragment(AttentionDistributionResultsFragment.newInstance(args));
     }
 
-    public void toAttentionStabilityResults(Bundle args) {
-        setFragment(AttentionStabilityResultsFragment.newInstance(args));
-    }
-
     public void toFocusingResults(Bundle args) {
         setFragment(FocusingResultsFragment.newInstance(args));
     }
 
     public void toComplexMotorReactionResults(Bundle args) {
         setFragment(ComplexMotorReactionResultsFragment.newInstance(args));
-    }
-
-    public void toAttentionVolumeResults(Bundle args) {
-        setFragment(AttentionVolumeResultsFragment.newInstance(args));
     }
 
     public void toStatisticsReaction(StatisticsResult results) {
