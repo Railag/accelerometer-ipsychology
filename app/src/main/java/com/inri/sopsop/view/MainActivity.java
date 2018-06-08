@@ -757,6 +757,10 @@ public class MainActivity extends NucleusAppCompatActivity<MainPresenter> implem
         setFragment(StatisticsComplexFragment.newInstance(results));
     }
 
+    public void toStatisticsFocusing(StatisticsResult results) {
+        setFragment(StatisticsFocusingFragment.newInstance(results));
+    }
+
     public void toStatisticsDistribution(StatisticsResult results) {
         setFragment(StatisticsDistributionFragment.newInstance(results));
     }

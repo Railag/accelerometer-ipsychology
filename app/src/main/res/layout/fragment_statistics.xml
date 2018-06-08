@@ -8,7 +8,7 @@
     android:paddingRight="8dp">
 
     <Button
-        android:id="@+id/focusing"
+        android:id="@+id/reaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -35,7 +35,7 @@
 
 
     <Button
-        android:id="@+id/stability"
+        android:id="@+id/complex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -45,6 +45,19 @@
         android:enabled="false"
         android:padding="10dp"
         android:text="@string/complexMotorReactionTestTitle"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/focusing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:enabled="false"
+        android:padding="10dp"
+        android:text="@string/focusingTestTitle"
         android:textColor="@color/white" />
 
 

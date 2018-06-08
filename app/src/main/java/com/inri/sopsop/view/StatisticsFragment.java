@@ -22,12 +22,14 @@ import nucleus.factory.RequiresPresenter;
 @RequiresPresenter(StatisticsPresenter.class)
 public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
 
-    @BindView(R.id.focusing)
+    @BindView(R.id.reaction)
     Button reaction;
     @BindView(R.id.distribution)
     Button distribution;
-    @BindView(R.id.stability)
+    @BindView(R.id.complex)
     Button complex;
+    @BindView(R.id.focusing)
+    Button focusing;
 
     private StatisticsResult results;
 
@@ -69,6 +71,7 @@ public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
         Collections.sort(result.volumeResults);
         Collections.sort(result.complexResults);
         Collections.sort(result.reactionResults);
+        Collections.sort(result.focusingResults);
         return result;
     }
 
@@ -89,6 +92,7 @@ public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
         complex.setEnabled(true);
         reaction.setEnabled(true);
         distribution.setEnabled(true);
+        focusing.setEnabled(true);
     }
 
     public void onError(Throwable throwable) {
@@ -96,17 +100,20 @@ public class StatisticsFragment extends BaseFragment<StatisticsPresenter> {
         throwable.printStackTrace();
     }
 
-    @OnClick({R.id.focusing, R.id.distribution, R.id.stability})
+    @OnClick({R.id.reaction, R.id.distribution, R.id.complex, R.id.focusing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.focusing:
+            case R.id.reaction:
                 getMainActivity().toStatisticsReaction(results);
                 break;
             case R.id.distribution:
                 getMainActivity().toStatisticsDistribution(results);
                 break;
-            case R.id.stability:
+            case R.id.complex:
                 getMainActivity().toStatisticsComplex(results);
+                break;
+            case R.id.focusing:
+                getMainActivity().toStatisticsFocusing(results);
                 break;
         }
     }
